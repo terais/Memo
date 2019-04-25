@@ -10,11 +10,12 @@ import java.util.HashMap;
  * 一覧画面に表示するのはデータの最初10文字だけ。
  */
 public class DataAdjust {
-    public static ArrayList<HashMap<String,String>> dataAdjust() {
+    public static ArrayList<HashMap<String,String>> dataAdjust(
+            ArrayList<HashMap<String, String>> memoList) {
         //データを10文字にしたものを格納するリスト
         ArrayList<HashMap<String,String>> showList = new ArrayList<>();
 
-        for(HashMap<String,String> data : ListActivity.getMemoList()) {
+        for(HashMap<String,String> data : memoList) {
             String body = data.get("body");
 
             if(body.length() > 10){

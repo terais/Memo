@@ -2,17 +2,18 @@ package com.memo.component;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.TwoLineListItem;
+import android.widget.*;
 import com.memo.ListActivity;
+import com.memo.MemoOpenHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ListLongClick {
     public static void listLongClick(ListView listView) {
+        final ArrayList<HashMap<String, String>> memo = ListActivity.memoList;
+        final SimpleAdapter adapter = ListActivity.simpleAdapter;
+        final MemoOpenHelper helper = ListActivity.helper;
         // リスト項目を長押しクリックした時の処理
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
             /**
@@ -28,15 +29,15 @@ public class ListLongClick {
                 String idStr = (String) idTextView.getText();
 
                 // 長押しした項目をデータベースから削除
-                SQLiteDatabase db = ListActivity.getHelper().getWritableDatabase();
+                SQLiteDatabase db = helper.getWritableDatabase();
                 try {
                     db.execSQL("DELETE FROM MEMO_TABLE WHERE uuid = '"+ idStr +"'");
                 } finally {
                     db.close();
                 }
                 // 長押しした項目を画面から削除
-                ListActivity.getMemoList().remove(position);
-                ListActivity.getSimpleAdapter().notifyDataSetChanged();
+                memo.remove(position);
+                adapter.notifyDataSetChanged();
 
                 // trueにすることで通常のクリックイベントを発生させない
                 return true;

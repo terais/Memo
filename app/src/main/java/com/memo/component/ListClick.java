@@ -20,7 +20,7 @@ public class ListClick {
              */
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // インテント作成  第二引数にはパッケージ名からの指定で、遷移先クラスを指定
-                Intent intent = new Intent(ListActivity.getInstance(), com.memo.Create.class);
+                Intent intent = new Intent(ListActivity.instance, com.memo.Create.class);
 
                 // 選択されたビューを取得 TwoLineListItemを取得した後、text2の値を取得する
                 // TwoLineListItemはAPI17では推奨されていないためいつか修正しよう。
@@ -30,7 +30,7 @@ public class ListClick {
                 // 値を引き渡す (識別名, 値)の順番で指定します
                 intent.putExtra("id", isStr);
                 // Activity起動
-                ListActivity.getInstance().startActivity(intent);
+                ListActivity.instance.startActivity(intent);
             }
         });
     }

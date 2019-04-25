@@ -9,7 +9,7 @@ import com.memo.R;
 public class NewEntry {
     public static void newEntry() {
         // idがnewButtonのボタンを取得
-        Button newButton = ListActivity.getInstance().findViewById(R.id.newButton);
+        Button newButton = ListActivity.instance.findViewById(R.id.newButton);
         // clickイベント追加
         newButton.setOnClickListener(new View.OnClickListener() {
             /**
@@ -18,9 +18,9 @@ public class NewEntry {
             @Override
             public void onClick(View v) {
                 // CreateMemoActivityへ遷移
-                Intent intent = new Intent(ListActivity.getInstance(), com.memo.Create.class);
+                Intent intent = new Intent(ListActivity.instance, com.memo.Create.class);
                 intent.putExtra("id", "");
-                ListActivity.getInstance().startActivity(intent);
+                ListActivity.instance.startActivity(intent);
             }
         });
     }

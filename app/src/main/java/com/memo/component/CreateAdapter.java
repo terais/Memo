@@ -9,7 +9,7 @@ import com.memo.ListActivity;
 public class CreateAdapter {
     public static SimpleAdapter createAdapter(ArrayList<HashMap<String,String>> memoList) {
         // Adapter生成
-        final SimpleAdapter simpleAdapter = new SimpleAdapter(ListActivity.getInstance(),
+        final SimpleAdapter simpleAdapter = new SimpleAdapter(ListActivity.instance,
                 memoList, // 使用するデータ
                 android.R.layout.simple_list_item_2, // 使用するレイアウト（今回はテンプレートを使う）
                 new String[]{"body","id"}, // どの項目を

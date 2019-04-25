@@ -23,22 +23,22 @@ import com.memo.component.*;
 public class ListActivity extends AppCompatActivity {
 
     //メインであるListActivityのインスタンスはコンポネントでよく使うのでゲッター用意
-    private static ListActivity instance = null;
+    public static ListActivity instance = null;
 
     // MemoOpenHelperクラスを定義（これもゲッター用意）
-    private static MemoOpenHelper helper = null;
+    public static MemoOpenHelper helper = null;
 
     //画面とデータのアダプター（これもゲッター用意）
-    private static SimpleAdapter simpleAdapter = null;
+    public static SimpleAdapter simpleAdapter = null;
 
     //データ格納用（ゲッター用意しちゃおう）
-    private static ArrayList<HashMap<String, String>> memoList = new ArrayList<>();
+    public static ArrayList<HashMap<String, String>> memoList = new ArrayList<>();
 
     //一覧表示用データ
-    private static ArrayList<HashMap<String,String>> showList = new ArrayList<>();
+//    private static ArrayList<HashMap<String,String>> showList = new ArrayList<>();
 
     //検索HITフラグ
-    private static ArrayList<String> hit = new ArrayList<>();
+    public static ArrayList<String> hit = new ArrayList<>();
 
     //クソダサカウンター作戦（simpleAdapterがゴミクソだからいけないんだ）
     private static int kdCounter = 0;
@@ -63,10 +63,11 @@ public class ListActivity extends AppCompatActivity {
         memoList = SelectData.selectData(helper);
 
         //一覧表示用に内容を10文字に省略
-        showList = DataAdjust.dataAdjust();
+//        showList = DataAdjust.dataAdjust(memoList);
 
         // Adapter生成
-        simpleAdapter = CreateAdapter.createAdapter(showList);
+        simpleAdapter = CreateAdapter.createAdapter(DataAdjust.dataAdjust(memoList));
+                //showList);
 
         // idがmemoListのListViewを取得
         ListView listView = findViewById(R.id.memoList);
@@ -83,7 +84,7 @@ public class ListActivity extends AppCompatActivity {
         NewEntry.newEntry();
 
         //検索ボタン押下処理(ダイアログ表示。OKが押されたら検索実行)
-        FindWord.findWord();
+        FindWord.findWord(instance);
 
         kdCounter = 0;
     }
@@ -113,27 +114,25 @@ public class ListActivity extends AppCompatActivity {
 
 
 
-    //helperを返す
-    public static MemoOpenHelper getHelper() {
-        return helper;
-    }
-
-    //アダプターを返す
-    public static SimpleAdapter getSimpleAdapter() {
-        return simpleAdapter;
-    }
-
-    //データ格納リストを返す
-    public static ArrayList<HashMap<String,String>> getMemoList() {
-        return memoList;
-    }
-
-    //コンテキストを返す
-    public static ListActivity getInstance() {
-        return instance;
-    }
-
-    public void setHit(ArrayList<String> hit) {
-        this.hit = hit;
-    }
+//    //helperを返す
+//    public static MemoOpenHelper getHelper() {
+//        return helper;
+//    }
+//
+//    //アダプターを返す
+//    public static SimpleAdapter getSimpleAdapter() {
+//        return simpleAdapter;
+//    }
+//
+//    //データ格納リストを返す
+//    public static ArrayList<HashMap<String,String>> getMemoList() { return memoList; }
+//
+//    //コンテキストを返す
+//    public static ListActivity getInstance() {
+//        return instance;
+//    }
+//
+//    public void setHit(ArrayList<String> hit) {
+//        this.hit = hit;
+//    }
 }
