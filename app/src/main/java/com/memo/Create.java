@@ -21,8 +21,7 @@ public class Create extends AppCompatActivity {
     boolean newFlag = false;
     // id
     String id = "";
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
