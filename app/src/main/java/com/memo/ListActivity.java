@@ -10,9 +10,10 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import com.memo.component.*;
-import com.memo.component.impl.SprashImpl;
+import com.memo.component.impl.SelectDataImpl;
 import com.memo.dagger.ApplicationComponent;
 import com.memo.dagger.DaggerApplicationComponent;
+import com.memo.dto.TestDto;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -42,10 +43,16 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         instance = this;
 
-        //メモっ娘を１秒表示
-//        new SprashImpl().sprash();
+        TestDto testDto = new TestDto(1,"test");
+        testDto.getTestId();
+        testDto.getTestStr();
+
         ApplicationComponent component = DaggerApplicationComponent.create();
         Sprash sprash = component.makeSprash();
+        SelectData selectData = component.makeSelectData();
+
+        //メモっ娘を１秒表示
+//        new SprashImpl().sprash();
         sprash.sprash();
 
         // スプラッシュthemeを通常themeに変更する
@@ -57,7 +64,7 @@ public class ListActivity extends AppCompatActivity {
             helper = new MemoOpenHelper(instance);
         }
         // memoListにデータを格納
-        memoList = SelectData.selectData(helper);
+        memoList = selectData.selectData(helper);//new SelectDataImpl().selectData(helper);
 
         //一覧表示用に内容を10文字に省略
 //        showList = DataAdjust.dataAdjust(memoList);
