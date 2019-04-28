@@ -1,24 +1,18 @@
 package com.memo;
 
-import android.content.DialogInterface;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import java.util.HashMap;
 import java.util.ArrayList;
 
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
-import android.widget.TwoLineListItem;
 import com.memo.component.*;
-
+import com.memo.component.impl.SprashImpl;
+import com.memo.dagger.ApplicationComponent;
+import com.memo.dagger.DaggerApplicationComponent;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -49,10 +43,13 @@ public class ListActivity extends AppCompatActivity {
         instance = this;
 
         //メモっ娘を１秒表示
-        Sprash.sprash();
+//        new SprashImpl().sprash();
+        ApplicationComponent component = DaggerApplicationComponent.create();
+        Sprash sprash = component.makeSprash();
+        sprash.sprash();
+
         // スプラッシュthemeを通常themeに変更する
         setTheme(R.style.AppTheme);
-
         setContentView(R.layout.activity_list);
 
         // データベースから値を取得する
