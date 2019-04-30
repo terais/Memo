@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +19,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.UUID;
 
 public class CreateImpl extends AppCompatActivity implements Create {
@@ -93,8 +91,6 @@ public class CreateImpl extends AppCompatActivity implements Create {
                 try {
                     String query = BooleanUtils.toString(registCheck, insertQuery, updateQuery);
                     db.execSQL(query);
-//                } catch (Exception e){
-//                    e.printStackTrace();
                 } finally {
                     // finallyは、tryの中で例外が発生した時でも必ず実行される
                     // dbを開いたら確実にclose
