@@ -59,21 +59,16 @@ public class ListActivity extends AppCompatActivity {
     }
     //viewのbgカラーを変更するメソッド（いつかコンポネントとして切り出したい...）
     public static SimpleAdapter.ViewBinder mViewBinder = new SimpleAdapter.ViewBinder() {
-        int kdCounter = 0;
         @Override
         public boolean setViewValue(View view, Object data,
                                     String textRepresentation) {
-            //memoListのbodyだけを見比べる
-            if(kdCounter % 2 != 0) {
-                for(String id : hit) {
-                    if(textRepresentation.contains(id)) {
-                        view.setBackgroundColor(Color.BLUE);
-                    } else {
-                        view.setBackgroundColor(Color.WHITE);
-                    }
+            for(String id : hit) {
+                if(textRepresentation.contains(id)) {
+                    view.setBackgroundColor(Color.BLUE);
+                } else {
+                    view.setBackgroundColor(Color.WHITE);
                 }
             }
-            kdCounter++;
             //trueだとなぜか壊れる。
             return false;
         }
