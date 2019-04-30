@@ -1,15 +1,13 @@
 package com.memo;
 
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import java.util.HashMap;
 import java.util.ArrayList;
 
-import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import com.memo.component.controller.impl.SetColor;
+import com.memo.component.controller.impl.SetColorImpl;
 import com.memo.dagger.module.Di;
 
 public class ListActivity extends AppCompatActivity {
@@ -55,7 +53,7 @@ public class ListActivity extends AppCompatActivity {
         Di.newEntry.newEntry();
 
         //検索ボタン押下処理(ダイアログ表示。OKが押されたら検索実行)
-        Di.findWord.findWord(this, memoList, simpleAdapter,  new SetColor().mViewBinder);
+        Di.findWord.findWord(this, memoList, simpleAdapter,  Di.setColor.searchWord());
 
     }
 }
