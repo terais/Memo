@@ -14,12 +14,10 @@ public class SetColorImpl implements SetColor {
             @Override
             public boolean setViewValue(View view, Object data,
                                         String textRepresentation) {
-                for (String id : ListActivity.hit) {
                     view.setBackgroundColor(Color.WHITE);
-                    if (textRepresentation.contains(id)) {
+                    if (textRepresentation.contains(targetWord)) {
                         view.setBackgroundColor(Color.BLUE);
                     }
-                }
                 //trueだとなぜか壊れる。
                 return false;
             }

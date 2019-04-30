@@ -55,19 +55,19 @@ public class FindWordImpl implements FindWord {
 
                         String word = editView.getText().toString();
 
-                        //HITしたIDを入れるリスト
-                        ArrayList<String> hit = new ArrayList<>();
-
-                        //検索文字列とmemoListを比較してHITしたらIDを控える
-                        for(HashMap<String,String> data : memoList) {
-                            String body = data.get("body");
-
-                            if(body.contains(word)) {
-                                hit.add(data.get("id"));
-                            }
-                        }
-                        ListActivity.instance.hit = hit;
-
+//                        //HITしたIDを入れるリスト
+//                        ArrayList<String> hit = new ArrayList<>();
+//
+//                        //検索文字列とmemoListを比較してHITしたらIDを控える
+//                        for(HashMap<String,String> data : memoList) {
+//                            String body = data.get("body");
+//
+//                            if(body.contains(word)) {
+//                                hit.add(data.get("id"));
+//                            }
+//                        }
+//                        ListActivity.instance.hit = hit;
+//
                         //引数に検索文字
                         adapter.setViewBinder(Di.setColor.searchWord(word));
                         // idがmemoListのListViewを取得

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import com.memo.component.controller.impl.SetColorImpl;
 import com.memo.dagger.module.Di;
 
 public class ListActivity extends AppCompatActivity {
