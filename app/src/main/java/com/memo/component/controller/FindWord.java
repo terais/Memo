@@ -16,5 +16,6 @@ import java.util.HashMap;
 public interface FindWord {
     void findWord(ListActivity listActivity,
                   ArrayList<HashMap<String, String>> memoList,
-                  SimpleAdapter adapter);
+                  SimpleAdapter adapter,
+                  SimpleAdapter.ViewBinder mViewBinder);
 }

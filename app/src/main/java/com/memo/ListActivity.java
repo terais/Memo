@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import com.memo.component.controller.impl.SetColor;
 import com.memo.dagger.module.Di;
 
 public class ListActivity extends AppCompatActivity {
@@ -54,22 +55,7 @@ public class ListActivity extends AppCompatActivity {
         Di.newEntry.newEntry();
 
         //検索ボタン押下処理(ダイアログ表示。OKが押されたら検索実行)
-        Di.findWord.findWord(this, memoList, simpleAdapter);
+        Di.findWord.findWord(this, memoList, simpleAdapter,  new SetColor().mViewBinder);
 
     }
-    //viewのbgカラーを変更するメソッド（いつかコンポネントとして切り出したい...）
-    public static SimpleAdapter.ViewBinder mViewBinder = new SimpleAdapter.ViewBinder() {
-        @Override
-        public boolean setViewValue(View view, Object data,
-                                    String textRepresentation) {
-            for(String id : hit) {
-                view.setBackgroundColor(Color.WHITE);
-                if(textRepresentation.contains(id)) {
-                    view.setBackgroundColor(Color.BLUE);
-                }
-            }
-            //trueだとなぜか壊れる。
-            return false;
-        }
-    };
 }

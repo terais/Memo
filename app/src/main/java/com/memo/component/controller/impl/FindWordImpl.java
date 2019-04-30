@@ -22,7 +22,8 @@ public class FindWordImpl implements FindWord {
      */
     public void findWord(ListActivity listActivity,
                          final ArrayList<HashMap<String, String>> memoList,
-                         final SimpleAdapter adapter) {
+                         final SimpleAdapter adapter,
+                         final  SimpleAdapter.ViewBinder mViewBinder) {
 
         // idがfindButtonのボタンを取得
         Button findButton = listActivity.findViewById(R.id.findButton);
@@ -68,7 +69,7 @@ public class FindWordImpl implements FindWord {
                         ListActivity.instance.hit = hit;
 
                         //wordと一致する場合bgカラーを黄色にする
-                        adapter.setViewBinder(ListActivity.mViewBinder);
+                        adapter.setViewBinder(mViewBinder);
                         // idがmemoListのListViewを取得
                         ListView listView = ListActivity.instance.findViewById(R.id.memoList);
                         //背景色を変えてから再表示
