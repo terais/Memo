@@ -1,5 +1,6 @@
 package com.memo;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import java.util.HashMap;
@@ -18,42 +19,50 @@ public class ListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        instance = this;
+        SQLiteDatabase selectDb = null;
+        try {
+            instance = this;
+            //メモっ娘を１秒表示
+            Di.sprash.sprash();//time);
 
-        //メモっ娘を１秒表示
-        Di.sprash.sprash();
+            // スプラッシュthemeを通常themeに変更する
+            setTheme(R.style.AppTheme);
 
-        // スプラッシュthemeを通常themeに変更する
-        setTheme(R.style.AppTheme);
-        setContentView(R.layout.activity_list);
+            setContentView(R.layout.activity_list);
 
-        // memoにデータを格納
-        ArrayList<HashMap<String, String>> memo
-                = Di.selectData.selectData(
-                        new SelectDataParamDto(Di.memoOpenHelper));
+            selectDb = Di.memoOpenHelper.setDb(new SelectDataParamDto(Di.memoOpenHelper));
 
-        // Adapter生成
-        SimpleAdapter simpleAdapter = Di.createAdapter.createAdapter(
-                new CreateAdapterParamDto(
-                    Di.dataAdjust.dataAdjust(new DataAdjustParamDto(memo)),
-                        this));
+            // memoにデータを格納
+            ArrayList<HashMap<String, String>> memo
+                    = Di.selectData.selectData(selectDb);
 
-        // idがmemoListのListViewを取得
-        ListView listView = findViewById(R.id.memoList);
-        listView.setAdapter(simpleAdapter);
+            // Adapter生成
+            SimpleAdapter simpleAdapter = Di.createAdapter.createAdapter(
+                    new CreateAdapterParamDto(
+                            Di.dataAdjust.dataAdjust(new DataAdjustParamDto(memo)),
+                            this));
 
-        // リスト項目をクリックした時の処理(メモ画面に遷移)
-        Di.listClick.listClick(new ListClickParamDto(listView, this));
+            // idがmemoListのListViewを取得
+            ListView listView = findViewById(R.id.memoList);
+            listView.setAdapter(simpleAdapter);
 
-        // リスト項目を長押しクリックした時の処理(削除)
-        Di.listLongClick.listLongClick(new ListLongClickParamDto(
-                listView, memo, simpleAdapter, Di.memoOpenHelper));
+            // リスト項目をクリックした時の処理(メモ画面に遷移)
+            Di.listClick.listClick(new ListClickParamDto(listView, this));
 
-        //新規作成ボタン押下処理(メモ画面へ遷移)
-        Di.newEntry.newEntry(new NewEntryParamDto(this));
+            // リスト項目を長押しクリックした時の処理(削除)
+            Di.listLongClick.listLongClick(new ListLongClickParamDto(
+                    listView, memo, simpleAdapter, Di.memoOpenHelper, this));
 
-        //検索ボタン押下処理(ダイアログ表示。OKが押されたら検索実行)
-        Di.findWord.findWord(new FindWordParamDto(
-                this, simpleAdapter));
+            //新規作成ボタン押下処理(メモ画面へ遷移)
+            Di.newEntry.newEntry(new NewEntryParamDto(this));
+
+            //検索ボタン押下処理(ダイアログ表示。OKが押されたら検索実行)
+            Di.findWord.findWord(new FindWordParamDto(
+                    this, simpleAdapter));
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            selectDb.close();
+        }
     }
 }

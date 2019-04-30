@@ -42,25 +42,20 @@ public class CreateImpl extends AppCompatActivity implements Create {
         // データベースを取得する
         SQLiteDatabase db = helper.getWritableDatabase();
         String queryFalse = BooleanUtils.toString(id.equals("")," AND 1=0","");
-        try {
-            // rawQueryというSELECT専用メソッドを使用してデータを取得する
-            Cursor c = db.rawQuery(
-                    "SELECT body FROM MEMO_TABLE WHERE uuid = '" + id + "'" + queryFalse,
-                    null);
-            // Cursorの先頭行があるかどうか確認
-            boolean next = c.moveToFirst();
-            // 取得した全ての行を取得
-            while (next) {
-                // 取得したカラムの順番(0から始まる)と型を指定してデータを取得する
-                String dispBody = c.getString(0);
-                EditText body = findViewById(R.id.body);
-                body.setText(dispBody, TextView.BufferType.NORMAL);
-                next = c.moveToNext();
-            }
-        } finally {
-            // finallyは、tryの中で例外が発生した時でも必ず実行される
-            // dbを開いたら確実にclose
-            db.close();
+
+        // rawQueryというSELECT専用メソッドを使用してデータを取得する
+        Cursor c = db.rawQuery(
+                "SELECT body FROM MEMO_TABLE WHERE uuid = '" + id + "'" + queryFalse,
+                null);
+        // Cursorの先頭行があるかどうか確認
+        boolean next = c.moveToFirst();
+        // 取得した全ての行を取得
+        while (next) {
+            // 取得したカラムの順番(0から始まる)と型を指定してデータを取得する
+            String dispBody = c.getString(0);
+            EditText body = findViewById(R.id.body);
+            body.setText(dispBody, TextView.BufferType.NORMAL);
+            next = c.moveToNext();
         }
 
         // idがregisterのボタンを取得

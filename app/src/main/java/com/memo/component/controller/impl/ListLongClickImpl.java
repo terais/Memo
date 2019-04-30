@@ -1,10 +1,13 @@
 package com.memo.component.controller.impl;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
 import android.widget.*;
+import com.memo.ListActivity;
 import com.memo.component.controller.ListLongClick;
 import com.memo.component.dto.ListLongClickParamDto;
+import com.memo.dagger.module.Di;
 
 public class ListLongClickImpl implements ListLongClick {
     public void listLongClick(final ListLongClickParamDto listLongClickParamDto) {
@@ -25,14 +28,16 @@ public class ListLongClickImpl implements ListLongClick {
 
                 // 長押しした項目をデータベースから削除
                 SQLiteDatabase db = listLongClickParamDto.getHelper().getWritableDatabase();
-                try {
-                    db.execSQL("DELETE FROM MEMO_TABLE WHERE uuid = '"+ idStr +"'");
-                } finally {
-                    db.close();
-                }
+
+                db.execSQL("DELETE FROM MEMO_TABLE WHERE uuid = '"+ idStr +"'");
+
                 // 長押しした項目を画面から削除
                 listLongClickParamDto.getMemo().remove(position);
                 listLongClickParamDto.getAdapter().notifyDataSetChanged();
+
+                Intent intent = new Intent(
+                        listLongClickParamDto.getListActivity(),new ListActivity().getClass());
+                listLongClickParamDto.getListActivity().startActivity(intent);
 
                 // trueにすることで通常のクリックイベントを発生させない
                 return true;

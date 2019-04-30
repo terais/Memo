@@ -3,6 +3,7 @@ package com.memo.component.service.impl;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import com.memo.component.dto.SelectDataParamDto;
 import com.memo.component.service.MemoOpenHelper;
 
 public class MemoOpenHelperImpl extends SQLiteOpenHelper implements MemoOpenHelper {
@@ -33,7 +34,6 @@ public class MemoOpenHelperImpl extends SQLiteOpenHelper implements MemoOpenHelp
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "uuid TEXT, " +
                 "body TEXT)");
-
     }
 
     // データベースをバージョンアップした時に実行される処理
@@ -51,6 +51,15 @@ public class MemoOpenHelperImpl extends SQLiteOpenHelper implements MemoOpenHelp
     @Override
     public SQLiteDatabase getWritableDatabase() {
         return super.getWritableDatabase();
+    }
+
+    public SQLiteDatabase setDb(SelectDataParamDto selectDataParamDto) {
+        SQLiteDatabase db = selectDataParamDto.getHelper().getWritableDatabase();
+        return db;
+    }
+
+    public void dbClose(SQLiteDatabase db) {
+        db.close();
     }
 }
 

@@ -15,7 +15,6 @@ public class DataAdjustImpl implements DataAdjust {
 
         for(HashMap<String,String> data : dataAdjustParamDto.getMemo()) {
             String body = data.get("body");
-
             int maxLength = BooleanUtils.toInteger(
                     body.length() > 10, 11, body.length());
             String putBody = BooleanUtils.toString(
@@ -23,7 +22,6 @@ public class DataAdjustImpl implements DataAdjust {
             data.put("body", putBody);
             showList.add(data);
         }
-
         return showList;
     }
 }
