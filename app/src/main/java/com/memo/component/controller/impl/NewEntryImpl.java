@@ -6,6 +6,7 @@ import android.widget.Button;
 import com.memo.R;
 import com.memo.component.controller.NewEntry;
 import com.memo.component.dto.NewEntryParamDto;
+import com.memo.component.service.impl.CreateImpl;
 import com.memo.dagger.module.Di;
 
 public class NewEntryImpl implements NewEntry {

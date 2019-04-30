@@ -13,18 +13,17 @@ import com.memo.R;
 import com.memo.component.service.Create;
 import com.memo.component.service.MemoOpenHelper;
 import com.memo.dagger.module.Di;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.UUID;
 
 public class CreateImpl extends AppCompatActivity implements Create {
     // MemoOpenHelperクラスを定義
     MemoOpenHelper helper = null;
-    // 新規フラグ
-    boolean newFlag = false;
     // id
     String id = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,39 +36,37 @@ public class CreateImpl extends AppCompatActivity implements Create {
         Intent intent = this.getIntent();
         // 値を取得
         id = intent.getStringExtra("id");
+
         // 画面に表示
-        if(id.equals("")){
-            // 新規作成の場合
-            newFlag = true;
-        }else{
-            // 編集の場合 データベースから値を取得して表示
-            // データベースを取得する
-            SQLiteDatabase db = helper.getWritableDatabase();
-            try {
-                // rawQueryというSELECT専用メソッドを使用してデータを取得する
-                Cursor c = db.rawQuery("select body from MEMO_TABLE where uuid = '" + id + "'", null);
-                // Cursorの先頭行があるかどうか確認
-                boolean next = c.moveToFirst();
-                // 取得した全ての行を取得
-                while (next) {
-                    // 取得したカラムの順番(0から始まる)と型を指定してデータを取得する
-                    String dispBody = c.getString(0);
-                    EditText body = findViewById(R.id.body);
-                    body.setText(dispBody, TextView.BufferType.NORMAL);
-                    next = c.moveToNext();
-                }
-            } finally {
-                // finallyは、tryの中で例外が発生した時でも必ず実行される
-                // dbを開いたら確実にclose
-                db.close();
+        // 編集の場合 データベースから値を取得して表示
+        // データベースを取得する
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String queryFalse = BooleanUtils.toString(id.equals("")," AND 1=0","");
+        try {
+            // rawQueryというSELECT専用メソッドを使用してデータを取得する
+            Cursor c = db.rawQuery(
+                    "SELECT body FROM MEMO_TABLE WHERE uuid = '" + id + "'" + queryFalse,
+                    null);
+            // Cursorの先頭行があるかどうか確認
+            boolean next = c.moveToFirst();
+            // 取得した全ての行を取得
+            while (next) {
+                // 取得したカラムの順番(0から始まる)と型を指定してデータを取得する
+                String dispBody = c.getString(0);
+                EditText body = findViewById(R.id.body);
+                body.setText(dispBody, TextView.BufferType.NORMAL);
+                next = c.moveToNext();
             }
+        } finally {
+            // finallyは、tryの中で例外が発生した時でも必ず実行される
+            // dbを開いたら確実にclose
+            db.close();
         }
 
         // idがregisterのボタンを取得
         Button registerButton = findViewById(R.id.register);
         // clickイベント追加
         registerButton.setOnClickListener(new View.OnClickListener() {
-
             /**
              * 登録ボタン処理
              */
@@ -81,23 +78,19 @@ public class CreateImpl extends AppCompatActivity implements Create {
 
                 // データベースに保存する
                 SQLiteDatabase db = helper.getWritableDatabase();
+                boolean registCheck = StringUtils.isBlank(id);
+                String insertQuery = "INSERT into MEMO_TABLE(uuid, body) VALUES('" +
+                        UUID.randomUUID().toString() + "', '" + bodyStr + "')";
+                String updateQuery = "UPDATE MEMO_TABLE SET body = '" +
+                        bodyStr + "' WHERE uuid = '" + id + "'";
                 try {
-                    if (newFlag) {
-                        // 新規作成の場合
-                        // 新しくuuidを発行する
-                        id = UUID.randomUUID().toString();
-                        // INSERT
-                        db.execSQL("insert into MEMO_TABLE(uuid, body) VALUES('" + id + "', '" + bodyStr + "')");
-                    } else {
-                        // UPDATE
-                        db.execSQL("update MEMO_TABLE set body = '" + bodyStr + "' where uuid = '" + id + "'");
-                    }
+                    String query = BooleanUtils.toString(registCheck, insertQuery, updateQuery);
+                    db.execSQL(query);
                 } finally {
                     // finallyは、tryの中で例外が発生した時でも必ず実行される
                     // dbを開いたら確実にclose
                     db.close();
                 }
-
                 // 保存後に一覧へ戻る
                 Intent intent = new Intent(CreateImpl.this, com.memo.ListActivity.class);
                 startActivity(intent);

@@ -5,6 +5,9 @@ import android.view.View;
 import android.widget.SimpleAdapter;
 import com.memo.component.controller.SetColor;
 import com.memo.component.dto.SetColorParamDto;
+import lombok.extern.apachecommons.CommonsLog;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 public class SetColorImpl implements SetColor {
 
@@ -14,10 +17,9 @@ public class SetColorImpl implements SetColor {
             @Override
             public boolean setViewValue(View view, Object data,
                                         String textRepresentation) {
-                    view.setBackgroundColor(Color.WHITE);
-                    if (textRepresentation.contains(setColorParamDto.getTargetWord())) {
-                        view.setBackgroundColor(Color.BLUE);
-                    }
+                boolean check = textRepresentation.contains(setColorParamDto.getTargetWord());
+                int setColor = BooleanUtils.toInteger(check, Color.BLUE, Color.WHITE);
+                view.setBackgroundColor(setColor);
                 //trueだとなぜか壊れる。
                 return false;
             }
