@@ -63,10 +63,9 @@ public class ListActivity extends AppCompatActivity {
         public boolean setViewValue(View view, Object data,
                                     String textRepresentation) {
             for(String id : hit) {
+                view.setBackgroundColor(Color.WHITE);
                 if(textRepresentation.contains(id)) {
                     view.setBackgroundColor(Color.BLUE);
-                } else {
-                    view.setBackgroundColor(Color.WHITE);
                 }
             }
             //trueだとなぜか壊れる。
