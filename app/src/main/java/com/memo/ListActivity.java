@@ -19,6 +19,8 @@ public class ListActivity extends AppCompatActivity {
     //検索HITフラグ
     public static ArrayList<String> hit = new ArrayList<>();
 
+    int muda = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
