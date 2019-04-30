@@ -2,7 +2,6 @@ package com.memo.component.service.impl;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import com.memo.component.dto.SelectDataParamDto;
 import com.memo.component.service.SelectData;
 
 import java.util.ArrayList;

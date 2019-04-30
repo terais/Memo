@@ -3,7 +3,7 @@ package com.memo.component.service.impl;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.memo.component.dto.SelectDataParamDto;
+import com.memo.component.dto.MemoOpenHelperParamDto;
 import com.memo.component.service.MemoOpenHelper;
 
 public class MemoOpenHelperImpl extends SQLiteOpenHelper implements MemoOpenHelper {
@@ -53,8 +53,8 @@ public class MemoOpenHelperImpl extends SQLiteOpenHelper implements MemoOpenHelp
         return super.getWritableDatabase();
     }
 
-    public SQLiteDatabase setDb(SelectDataParamDto selectDataParamDto) {
-        SQLiteDatabase db = selectDataParamDto.getHelper().getWritableDatabase();
+    public SQLiteDatabase setDb(MemoOpenHelperParamDto memoOpenHelperParamDto) {
+        SQLiteDatabase db = memoOpenHelperParamDto.getHelper().getWritableDatabase();
         return db;
     }
 

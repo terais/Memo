@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SelectDataParamDto {
+public class MemoOpenHelperParamDto {
     private MemoOpenHelper helper;
 }

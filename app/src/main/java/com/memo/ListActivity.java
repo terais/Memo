@@ -30,7 +30,7 @@ public class ListActivity extends AppCompatActivity {
 
             setContentView(R.layout.activity_list);
 
-            selectDb = Di.memoOpenHelper.setDb(new SelectDataParamDto(Di.memoOpenHelper));
+            selectDb = Di.memoOpenHelper.setDb(new MemoOpenHelperParamDto(Di.memoOpenHelper));
 
             // memoにデータを格納
             ArrayList<HashMap<String, String>> memo
