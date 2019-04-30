@@ -1,4 +1,4 @@
-package com.memo.dto;
+package com.memo.component.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

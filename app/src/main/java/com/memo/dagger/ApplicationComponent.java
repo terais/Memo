@@ -1,8 +1,15 @@
 package com.memo.dagger;
 
-import com.memo.component.SelectData;
-import com.memo.component.Sprash;
-import com.memo.component.impl.SprashImpl;
+import com.memo.component.controller.FindWord;
+import com.memo.component.controller.ListClick;
+import com.memo.component.controller.ListLongClick;
+import com.memo.component.controller.NewEntry;
+import com.memo.component.logic.DataAdjust;
+import com.memo.component.other.CreateAdapter;
+import com.memo.component.service.Create;
+import com.memo.component.service.MemoOpenHelper;
+import com.memo.component.service.SelectData;
+import com.memo.component.other.Sprash;
 import com.memo.dagger.module.ProvideModule;
 import dagger.Component;
 
@@ -10,4 +17,12 @@ import dagger.Component;
 public interface ApplicationComponent {
     Sprash makeSprash();
     SelectData makeSelectData();
+    MemoOpenHelper makeMemoOpenHelper();
+    NewEntry makeNewEntry();
+    ListLongClick makeListLongClick();
+    ListClick makeListClick();
+    FindWord makeFindWord();
+    DataAdjust makeDataAdjust();
+    CreateAdapter makeCreateAdapter();
+    Create makeCreate();
 }

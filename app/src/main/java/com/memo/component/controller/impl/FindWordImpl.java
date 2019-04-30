@@ -1,4 +1,4 @@
-package com.memo.component;
+package com.memo.component.controller.impl;
 
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -8,15 +8,16 @@ import android.widget.EditText;
 import android.widget.ListView;
 import com.memo.ListActivity;
 import com.memo.R;
+import com.memo.component.controller.FindWord;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class FindWord {
+public class FindWordImpl implements FindWord {
     /**
      * ダイアログでOKボタンが押されたら検索ワードをリターン
      */
-    public static void findWord(ListActivity listActivity) {
+    public void findWord(ListActivity listActivity) {
 
         // idがfindButtonのボタンを取得
         Button findButton = listActivity.findViewById(R.id.findButton);

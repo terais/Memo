@@ -1,13 +1,14 @@
-package com.memo.component;
-
+package com.memo.component.other.impl;
 
 import android.widget.SimpleAdapter;
+import com.memo.ListActivity;
+import com.memo.component.other.CreateAdapter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.memo.ListActivity;
 
-public class CreateAdapter {
-    public static SimpleAdapter createAdapter(ArrayList<HashMap<String,String>> memoList) {
+public class CreateAdapterImpl implements CreateAdapter {
+    public SimpleAdapter createAdapter(ArrayList<HashMap<String,String>> memoList) {
         // Adapter生成
         final SimpleAdapter simpleAdapter = new SimpleAdapter(ListActivity.instance,
                 memoList, // 使用するデータ

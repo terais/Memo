@@ -1,4 +1,4 @@
-package com.memo.component;
+package com.memo.component.controller.impl;
 
 import android.content.Intent;
 import android.view.View;
@@ -7,9 +7,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TwoLineListItem;
 import com.memo.ListActivity;
+import com.memo.component.controller.ListClick;
+import com.memo.dagger.module.Di;
 
-public class ListClick {
-    public static void listClick(ListView listView) {
+public class ListClickImpl implements ListClick {
+    public void listClick(ListView listView) {
         // リスト項目をクリックした時の処理
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             /**
@@ -20,7 +22,7 @@ public class ListClick {
              */
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // インテント作成  第二引数にはパッケージ名からの指定で、遷移先クラスを指定
-                Intent intent = new Intent(ListActivity.instance, com.memo.Create.class);
+                Intent intent = new Intent(ListActivity.instance, Di.create.getClass());
 
                 // 選択されたビューを取得 TwoLineListItemを取得した後、text2の値を取得する
                 // TwoLineListItemはAPI17では推奨されていないためいつか修正しよう。

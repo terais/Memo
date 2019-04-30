@@ -1,20 +1,23 @@
-package com.memo;
-
+package com.memo.component.service.impl;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.memo.R;
+import com.memo.component.service.Create;
+import com.memo.component.service.MemoOpenHelper;
+import com.memo.dagger.module.Di;
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.UUID;
 
-public class Create extends AppCompatActivity {
-
+public class CreateImpl extends AppCompatActivity implements Create {
     // MemoOpenHelperクラスを定義
     MemoOpenHelper helper = null;
     // 新規フラグ
@@ -28,9 +31,7 @@ public class Create extends AppCompatActivity {
         setContentView(R.layout.activity_create);
 
         // データベースから値を取得する
-        if(helper == null){
-            helper = new MemoOpenHelper(Create.this);
-        }
+        helper = ObjectUtils.defaultIfNull(helper, Di.memoOpenHelper);
 
         // ListActivityからインテントを取得
         Intent intent = this.getIntent();
@@ -98,7 +99,7 @@ public class Create extends AppCompatActivity {
                 }
 
                 // 保存後に一覧へ戻る
-                Intent intent = new Intent(Create.this, com.memo.ListActivity.class);
+                Intent intent = new Intent(CreateImpl.this, com.memo.ListActivity.class);
                 startActivity(intent);
             }
         });

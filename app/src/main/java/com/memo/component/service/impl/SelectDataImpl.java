@@ -1,12 +1,9 @@
-package com.memo.component.impl;
+package com.memo.component.service.impl;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import com.memo.MemoOpenHelper;
-import com.memo.component.SelectData;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import com.memo.component.service.MemoOpenHelper;
+import com.memo.component.service.SelectData;
 
 import java.util.ArrayList;
 import java.util.HashMap;

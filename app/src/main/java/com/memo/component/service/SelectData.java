@@ -1,6 +1,4 @@
-package com.memo.component;
-
-import com.memo.MemoOpenHelper;
+package com.memo.component.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;

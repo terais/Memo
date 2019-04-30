@@ -1,10 +1,11 @@
-package com.memo;
+package com.memo.component.service.impl;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import com.memo.component.service.MemoOpenHelper;
 
-public class MemoOpenHelper extends SQLiteOpenHelper {
+public class MemoOpenHelperImpl extends SQLiteOpenHelper implements MemoOpenHelper {
 
     // データベース名
     static final private String DBName = "MEMO_DB";
@@ -12,7 +13,7 @@ public class MemoOpenHelper extends SQLiteOpenHelper {
     static final private int VERSION = 1;
 
     // コンストラクタ　以下のように呼ぶこと
-    public MemoOpenHelper(Context context){
+    public MemoOpenHelperImpl(Context context){
         super(context, DBName, null, VERSION);
     }
 
@@ -47,4 +48,9 @@ public class MemoOpenHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    @Override
+    public SQLiteDatabase getWritableDatabase() {
+        return super.getWritableDatabase();
+    }
 }
+

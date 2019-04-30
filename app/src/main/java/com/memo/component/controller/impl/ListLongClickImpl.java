@@ -1,16 +1,16 @@
-package com.memo.component;
+package com.memo.component.controller.impl;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
 import android.widget.*;
 import com.memo.ListActivity;
-import com.memo.MemoOpenHelper;
+import com.memo.component.controller.ListLongClick;
+import com.memo.component.service.MemoOpenHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-public class ListLongClick {
-    public static void listLongClick(ListView listView) {
+public class ListLongClickImpl implements ListLongClick {
+    public void listLongClick(ListView listView) {
         final ArrayList<HashMap<String, String>> memo = ListActivity.memoList;
         final SimpleAdapter adapter = ListActivity.simpleAdapter;
         final MemoOpenHelper helper = ListActivity.helper;
@@ -45,3 +45,4 @@ public class ListLongClick {
         });
     }
 }
+

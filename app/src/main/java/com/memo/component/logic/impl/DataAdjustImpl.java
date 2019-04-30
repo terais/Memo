@@ -1,16 +1,12 @@
-package com.memo.component;
+package com.memo.component.logic.impl;
 
-import com.memo.ListActivity;
+import com.memo.component.logic.DataAdjust;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
-/**
- * 一覧画面に表示するのはデータの最初10文字だけ。
- */
-public class DataAdjust {
-    public static ArrayList<HashMap<String,String>> dataAdjust(
+public class DataAdjustImpl implements DataAdjust {
+    public ArrayList<HashMap<String,String>> dataAdjust(
             ArrayList<HashMap<String, String>> memoList) {
         //データを10文字にしたものを格納するリスト
         ArrayList<HashMap<String,String>> showList = new ArrayList<>();

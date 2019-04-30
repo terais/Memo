@@ -1,8 +1,6 @@
-package com.memo.component.impl;
+package com.memo.component.other.impl;
 
-import android.app.ListActivity;
-import com.memo.component.Sprash;
-import dagger.Component;
+import com.memo.component.other.Sprash;
 
 /**
  * アプリ起動時にメモっ娘を表示する時間を操作するメソッド
