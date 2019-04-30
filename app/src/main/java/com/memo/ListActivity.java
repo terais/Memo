@@ -38,17 +38,6 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         instance = this;
 
-//        ApplicationComponent component = DaggerApplicationComponent.create();
-//        Sprash sprash = component.makeSprash();
-//        SelectData selectData = component.makeSelectData();
-//        MemoOpenHelper memoOpenHelper = component.makeMemoOpenHelper();
-//        NewEntry newEntry = component.makeNewEntry();
-//        ListClick listClick = component.makeListClick();
-//        ListLongClick listLongClick = component.makeListLongClick();
-//        FindWord findWord = component.makeFindWord();
-//        DataAdjust dataAdjust = component.makeDataAdjust();
-//        CreateAdapter createAdapter = component.makeCreateAdapter();
-
         //メモっ娘を１秒表示
         Di.sprash.sprash();
 
