@@ -34,7 +34,7 @@ public class ListActivity extends AppCompatActivity {
 
             // memoにデータを格納
             ArrayList<HashMap<String, String>> memo
-                    = Di.selectData.selectData(selectDb);
+                    = Di.selectData.selectData(db);
 
             // Adapter生成
             SimpleAdapter simpleAdapter = Di.createAdapter.createAdapter(
