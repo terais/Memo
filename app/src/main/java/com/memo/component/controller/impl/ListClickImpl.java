@@ -9,6 +9,9 @@ import com.memo.component.controller.ListClick;
 import com.memo.component.dto.ListClickParamDto;
 import com.memo.dagger.module.Di;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class ListClickImpl implements ListClick {
     public void listClick(final ListClickParamDto listClickParamDto) {
         // リスト項目をクリックした時の処理
@@ -27,7 +30,7 @@ public class ListClickImpl implements ListClick {
                 // TwoLineListItemはAPI17では推奨されていないためいつか修正しよう。
                 TwoLineListItem two = (TwoLineListItem)view;
                 TextView idTextView = two.getText2();
-                String isStr = (String) idTextView.getText();
+                String isStr = listClickParamDto.getMemo().get(position).get("id");
                 // 値を引き渡す (識別名, 値)の順番で指定します
                 intent.putExtra("id", isStr);
                 // Activity起動

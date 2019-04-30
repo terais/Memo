@@ -47,7 +47,7 @@ public class ListActivity extends AppCompatActivity {
             listView.setAdapter(simpleAdapter);
 
             // リスト項目をクリックした時の処理(メモ画面に遷移)
-            Di.listClick.listClick(new ListClickParamDto(listView, this));
+            Di.listClick.listClick(new ListClickParamDto(listView, this, memo));
 
             // リスト項目を長押しクリックした時の処理(削除)
             Di.listLongClick.listLongClick(new ListLongClickParamDto(

@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,9 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 public class CreateImpl extends AppCompatActivity implements Create {
@@ -45,7 +49,7 @@ public class CreateImpl extends AppCompatActivity implements Create {
 
         // rawQueryというSELECT専用メソッドを使用してデータを取得する
         Cursor c = db.rawQuery(
-                "SELECT body FROM MEMO_TABLE WHERE uuid = '" + id + "'" + queryFalse,
+                "SELECT body, date FROM MEMO_TABLE WHERE uuid = '" + id + "'" + queryFalse,
                 null);
         // Cursorの先頭行があるかどうか確認
         boolean next = c.moveToFirst();
@@ -53,8 +57,11 @@ public class CreateImpl extends AppCompatActivity implements Create {
         while (next) {
             // 取得したカラムの順番(0から始まる)と型を指定してデータを取得する
             String dispBody = c.getString(0);
+            String dispDate = c.getString(1);
             EditText body = findViewById(R.id.body);
             body.setText(dispBody, TextView.BufferType.NORMAL);
+            TextView date = findViewById(R.id.modify_date);
+            date.setText(dispDate);
             next = c.moveToNext();
         }
 
@@ -74,13 +81,20 @@ public class CreateImpl extends AppCompatActivity implements Create {
                 // データベースに保存する
                 SQLiteDatabase db = helper.getWritableDatabase();
                 boolean registCheck = StringUtils.isBlank(id);
-                String insertQuery = "INSERT into MEMO_TABLE(uuid, body) VALUES('" +
-                        UUID.randomUUID().toString() + "', '" + bodyStr + "')";
+
+                Calendar cl = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss:SSS");
+                String date = sdf.format(cl.getTime());
+
+                String insertQuery = "INSERT into MEMO_TABLE(uuid, body, date) VALUES('" +
+                        UUID.randomUUID().toString() + "', '" + bodyStr + "', '" + date + "')";
                 String updateQuery = "UPDATE MEMO_TABLE SET body = '" +
-                        bodyStr + "' WHERE uuid = '" + id + "'";
+                        bodyStr + "', date = '" + date + "' WHERE uuid = '" + id + "'";
                 try {
                     String query = BooleanUtils.toString(registCheck, insertQuery, updateQuery);
                     db.execSQL(query);
+//                } catch (Exception e){
+//                    e.printStackTrace();
                 } finally {
                     // finallyは、tryの中で例外が発生した時でも必ず実行される
                     // dbを開いたら確実にclose

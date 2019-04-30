@@ -9,6 +9,9 @@ import android.widget.TwoLineListItem;
 import com.memo.ListActivity;
 import com.memo.component.dto.ListClickParamDto;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public interface ListClick {
     void listClick(ListClickParamDto listClickParamDto);
 }

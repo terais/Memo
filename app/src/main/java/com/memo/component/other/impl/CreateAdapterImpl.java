@@ -4,6 +4,8 @@ import android.widget.SimpleAdapter;
 import com.memo.component.dto.CreateAdapterParamDto;
 import com.memo.component.other.CreateAdapter;
 
+import java.util.Date;
+
 public class CreateAdapterImpl implements CreateAdapter {
     public SimpleAdapter createAdapter(
             CreateAdapterParamDto createAdapterParamDto) {
@@ -12,7 +14,7 @@ public class CreateAdapterImpl implements CreateAdapter {
             createAdapterParamDto.getInstance(),
             createAdapterParamDto.getMemo(), // 使用するデータ
             android.R.layout.simple_list_item_2, // 使用するレイアウト（今回はテンプレートを使う）
-            new String[]{"body","id"}, // どの項目を
+            new String[]{"body","date"}, // どの項目を
             new int[]{android.R.id.text1, android.R.id.text2} // どのidの項目に入れるか
         );
         return simpleAdapter;

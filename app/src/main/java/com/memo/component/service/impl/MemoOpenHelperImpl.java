@@ -33,7 +33,8 @@ public class MemoOpenHelperImpl extends SQLiteOpenHelper implements MemoOpenHelp
         db.execSQL("CREATE TABLE MEMO_TABLE (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "uuid TEXT, " +
-                "body TEXT)");
+                "body TEXT," +
+                "date TEXT)");
     }
 
     // データベースをバージョンアップした時に実行される処理
@@ -43,7 +44,6 @@ public class MemoOpenHelperImpl extends SQLiteOpenHelper implements MemoOpenHelp
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS MEMO_TABLE");
-
         // 新しくテーブルを作成する
         onCreate(db);
     }
@@ -55,6 +55,7 @@ public class MemoOpenHelperImpl extends SQLiteOpenHelper implements MemoOpenHelp
 
     public SQLiteDatabase setDb(MemoOpenHelperParamDto memoOpenHelperParamDto) {
         SQLiteDatabase db = memoOpenHelperParamDto.getHelper().getWritableDatabase();
+
         return db;
     }
 
