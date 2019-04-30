@@ -1,10 +1,12 @@
 package com.memo.component.service.impl;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.memo.component.dto.MemoOpenHelperParamDto;
 import com.memo.component.service.MemoOpenHelper;
+import org.apache.commons.lang3.BooleanUtils;
 
 public class MemoOpenHelperImpl extends SQLiteOpenHelper implements MemoOpenHelper {
 
@@ -56,6 +58,12 @@ public class MemoOpenHelperImpl extends SQLiteOpenHelper implements MemoOpenHelp
     public SQLiteDatabase setDb(MemoOpenHelperParamDto memoOpenHelperParamDto) {
         SQLiteDatabase db = memoOpenHelperParamDto.getHelper().getWritableDatabase();
 
+        //DB更新しても継承メソッド動かないから自分で作っとく
+        String query = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='MEMO_TABLE';";
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+        String result = c.getString(0);
+        if (result.equals("0")) onCreate(db);
         return db;
     }
 
