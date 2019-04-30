@@ -14,9 +14,6 @@ public class ListLongClickImpl implements ListLongClick {
                               final ArrayList<HashMap<String, String>> memo,
                               final SimpleAdapter adapter,
                               final MemoOpenHelper helper) {
-//        final ArrayList<HashMap<String, String>> memo = memoList;
-//        final SimpleAdapter adapter = ListActivity.simpleAdapter;
-//        final MemoOpenHelper helper = ListActivity.helper;
         // リスト項目を長押しクリックした時の処理
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
             /**

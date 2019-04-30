@@ -15,7 +15,6 @@ import com.memo.dagger.ApplicationComponent;
 import com.memo.dagger.DaggerApplicationComponent;
 
 public class Di {
-//    public static ListActivity instance;
     public static ApplicationComponent component = DaggerApplicationComponent.create();
     public static Sprash sprash = component.makeSprash();
     public static SelectData selectData = component.makeSelectData();

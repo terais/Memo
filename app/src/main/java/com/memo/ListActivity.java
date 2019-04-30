@@ -9,11 +9,7 @@ import java.util.ArrayList;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import com.memo.component.service.MemoOpenHelper;
-import com.memo.dagger.ApplicationComponent;
 import com.memo.dagger.module.Di;
-import dagger.internal.DaggerCollections;
-import org.apache.commons.lang3.ObjectUtils;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -22,9 +18,6 @@ public class ListActivity extends AppCompatActivity {
 
     //検索HITフラグ
     public static ArrayList<String> hit = new ArrayList<>();
-
-    //クソダサカウンター作戦（simpleAdapterがゴミクソだからいけないんだ）
-    private static int kdCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +56,13 @@ public class ListActivity extends AppCompatActivity {
         //検索ボタン押下処理(ダイアログ表示。OKが押されたら検索実行)
         Di.findWord.findWord(this, memoList, simpleAdapter);
 
-        kdCounter = 0;
     }
     //viewのbgカラーを変更するメソッド（いつかコンポネントとして切り出したい...）
     public static SimpleAdapter.ViewBinder mViewBinder = new SimpleAdapter.ViewBinder() {
+        int kdCounter = 0;
         @Override
         public boolean setViewValue(View view, Object data,
                                     String textRepresentation) {
-
             //memoListのbodyだけを見比べる
             if(kdCounter % 2 != 0) {
                 for(String id : hit) {
