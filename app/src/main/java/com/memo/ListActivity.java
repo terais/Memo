@@ -19,7 +19,7 @@ public class ListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SQLiteDatabase selectDb = null;
+        SQLiteDatabase db = null;
         try {
             instance = this;
             //メモっ娘を１秒表示
@@ -30,7 +30,7 @@ public class ListActivity extends AppCompatActivity {
 
             setContentView(R.layout.activity_list);
 
-            selectDb = Di.memoOpenHelper.setDb(new MemoOpenHelperParamDto(Di.memoOpenHelper));
+            db = Di.memoOpenHelper.setDb(new MemoOpenHelperParamDto(Di.memoOpenHelper));
 
             // memoにデータを格納
             ArrayList<HashMap<String, String>> memo
@@ -62,7 +62,7 @@ public class ListActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            selectDb.close();
+            db.close();
         }
     }
 }
