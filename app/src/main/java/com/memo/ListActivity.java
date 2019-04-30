@@ -53,7 +53,7 @@ public class ListActivity extends AppCompatActivity {
         Di.newEntry.newEntry();
 
         //検索ボタン押下処理(ダイアログ表示。OKが押されたら検索実行)
-        Di.findWord.findWord(this, memoList, simpleAdapter,  Di.setColor.searchWord());
+        Di.findWord.findWord(this, memoList, simpleAdapter,  Di.setColor.searchWord(""));
 
     }
 }

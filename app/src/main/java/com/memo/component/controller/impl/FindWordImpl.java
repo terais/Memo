@@ -68,8 +68,8 @@ public class FindWordImpl implements FindWord {
                         }
                         ListActivity.instance.hit = hit;
 
-                        //wordと一致する場合bgカラーを黄色にする
-                        adapter.setViewBinder(mViewBinder);
+                        //引数に検索文字
+                        adapter.setViewBinder(Di.setColor.searchWord(word));
                         // idがmemoListのListViewを取得
                         ListView listView = ListActivity.instance.findViewById(R.id.memoList);
                         //背景色を変えてから再表示

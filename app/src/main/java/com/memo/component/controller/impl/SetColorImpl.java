@@ -8,7 +8,7 @@ import com.memo.component.controller.SetColor;
 
 public class SetColorImpl implements SetColor {
 
-    public SimpleAdapter.ViewBinder searchWord() {
+    public SimpleAdapter.ViewBinder searchWord(final String targetWord) {
         //viewのbgカラーを変更するメソッド（いつかコンポネントとして切り出したい...）
         SimpleAdapter.ViewBinder mViewBinder = new SimpleAdapter.ViewBinder() {
             @Override
