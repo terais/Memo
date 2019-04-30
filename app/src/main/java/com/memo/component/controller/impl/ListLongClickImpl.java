@@ -10,10 +10,13 @@ import com.memo.component.service.MemoOpenHelper;
 import java.util.ArrayList;
 import java.util.HashMap;
 public class ListLongClickImpl implements ListLongClick {
-    public void listLongClick(ListView listView) {
-        final ArrayList<HashMap<String, String>> memo = ListActivity.memoList;
-        final SimpleAdapter adapter = ListActivity.simpleAdapter;
-        final MemoOpenHelper helper = ListActivity.helper;
+    public void listLongClick(ListView listView,
+                              final ArrayList<HashMap<String, String>> memo,
+                              final SimpleAdapter adapter,
+                              final MemoOpenHelper helper) {
+//        final ArrayList<HashMap<String, String>> memo = memoList;
+//        final SimpleAdapter adapter = ListActivity.simpleAdapter;
+//        final MemoOpenHelper helper = ListActivity.helper;
         // リスト項目を長押しクリックした時の処理
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
             /**

@@ -6,9 +6,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import com.memo.ListActivity;
 import com.memo.R;
 import com.memo.component.controller.FindWord;
+import com.memo.component.service.MemoOpenHelper;
+import com.memo.dagger.module.Di;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +20,9 @@ public class FindWordImpl implements FindWord {
     /**
      * ダイアログでOKボタンが押されたら検索ワードをリターン
      */
-    public void findWord(ListActivity listActivity) {
+    public void findWord(ListActivity listActivity,
+                         final ArrayList<HashMap<String, String>> memoList,
+                         final SimpleAdapter adapter) {
 
         // idがfindButtonのボタンを取得
         Button findButton = listActivity.findViewById(R.id.findButton);
@@ -53,7 +58,7 @@ public class FindWordImpl implements FindWord {
                         ArrayList<String> hit = new ArrayList<>();
 
                         //検索文字列とmemoListを比較してHITしたらIDを控える
-                        for(HashMap<String,String> data : ListActivity.memoList) {
+                        for(HashMap<String,String> data : memoList) {
                             String body = data.get("body");
 
                             if(body.contains(word)) {
@@ -63,11 +68,11 @@ public class FindWordImpl implements FindWord {
                         ListActivity.instance.hit = hit;
 
                         //wordと一致する場合bgカラーを黄色にする
-                        ListActivity.simpleAdapter.setViewBinder(ListActivity.mViewBinder);
+                        adapter.setViewBinder(ListActivity.mViewBinder);
                         // idがmemoListのListViewを取得
                         ListView listView = ListActivity.instance.findViewById(R.id.memoList);
                         //背景色を変えてから再表示
-                        listView.setAdapter(ListActivity.simpleAdapter);
+                        listView.setAdapter(adapter);
 
                     }
                 });

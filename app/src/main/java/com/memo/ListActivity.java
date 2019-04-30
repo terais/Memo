@@ -10,22 +10,15 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import com.memo.component.service.MemoOpenHelper;
+import com.memo.dagger.ApplicationComponent;
 import com.memo.dagger.module.Di;
+import dagger.internal.DaggerCollections;
 import org.apache.commons.lang3.ObjectUtils;
 
 public class ListActivity extends AppCompatActivity {
 
     //メインであるListActivityのインスタンスはコンポネントでよく使うのでゲッター用意
     public static ListActivity instance = null;
-
-    // MemoOpenHelperクラスを定義（これもゲッター用意）
-    public static MemoOpenHelper helper = null;
-
-    //画面とデータのアダプター（これもゲッター用意）
-    public static SimpleAdapter simpleAdapter = null;
-
-    //データ格納用（ゲッター用意しちゃおう）
-    public static ArrayList<HashMap<String, String>> memoList = new ArrayList<>();
 
     //検索HITフラグ
     public static ArrayList<String> hit = new ArrayList<>();
@@ -45,14 +38,13 @@ public class ListActivity extends AppCompatActivity {
         setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_list);
 
-        // データベースから値を取得する
-        helper = ObjectUtils.defaultIfNull(helper, Di.memoOpenHelper);
-
         // memoListにデータを格納
-        memoList = Di.selectData.selectData(helper);
+        ArrayList<HashMap<String, String>> memoList
+                = Di.selectData.selectData(Di.memoOpenHelper);
 
         // Adapter生成
-        simpleAdapter = Di.createAdapter.createAdapter(Di.dataAdjust.dataAdjust(memoList), this);
+        SimpleAdapter simpleAdapter = Di.createAdapter.createAdapter(
+                Di.dataAdjust.dataAdjust(memoList), this);
 
         // idがmemoListのListViewを取得
         ListView listView = findViewById(R.id.memoList);
@@ -62,13 +54,14 @@ public class ListActivity extends AppCompatActivity {
         Di.listClick.listClick(listView);
 
         // リスト項目を長押しクリックした時の処理(削除)
-        Di.listLongClick.listLongClick(listView);
+        Di.listLongClick.listLongClick(
+                listView, memoList, simpleAdapter, Di.memoOpenHelper);
 
         //新規作成ボタン押下処理(メモ画面へ遷移)
         Di.newEntry.newEntry();
 
         //検索ボタン押下処理(ダイアログ表示。OKが押されたら検索実行)
-        Di.findWord.findWord(instance);
+        Di.findWord.findWord(this, memoList, simpleAdapter);
 
         kdCounter = 0;
     }
