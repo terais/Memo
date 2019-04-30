@@ -1,11 +1,8 @@
 package com.memo.component.other;
 
-
 import android.widget.SimpleAdapter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import com.memo.ListActivity;
+import com.memo.component.dto.CreateAdapterParamDto;
 
 public interface CreateAdapter {
-    SimpleAdapter createAdapter(ArrayList<HashMap<String,String>> memoList, ListActivity instance);
+    SimpleAdapter createAdapter(CreateAdapterParamDto createAdapterParamDto);
 }

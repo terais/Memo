@@ -1,5 +1,6 @@
 package com.memo.component.dto;
 
+import com.memo.component.service.MemoOpenHelper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TestDto {
-    private int testId;
-    private String testStr;
+public class SelectDataParamDto {
+    private MemoOpenHelper helper;
 }

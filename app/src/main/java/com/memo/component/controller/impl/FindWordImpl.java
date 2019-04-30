@@ -6,27 +6,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import com.memo.ListActivity;
 import com.memo.R;
 import com.memo.component.controller.FindWord;
-import com.memo.component.service.MemoOpenHelper;
+import com.memo.component.dto.FindWordParamDto;
+import com.memo.component.dto.SetColorParamDto;
 import com.memo.dagger.module.Di;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class FindWordImpl implements FindWord {
     /**
      * ダイアログでOKボタンが押されたら検索ワードをリターン
      */
-    public void findWord(ListActivity listActivity,
-                         final ArrayList<HashMap<String, String>> memoList,
-                         final SimpleAdapter adapter,
-                         final  SimpleAdapter.ViewBinder mViewBinder) {
-
+    public void findWord(final FindWordParamDto findWordParamDto) {
         // idがfindButtonのボタンを取得
-        Button findButton = listActivity.findViewById(R.id.findButton);
+        Button findButton = findWordParamDto.getListActivity().findViewById(R.id.findButton);
         //clickイベント追加
         findButton.setOnClickListener(new View.OnClickListener() {
             /**
@@ -35,10 +27,12 @@ public class FindWordImpl implements FindWord {
             @Override
             public void onClick(View v) {
                 //文字入力フォームのビューを作成
-                final EditText editView = new EditText(ListActivity.instance);
+                final EditText editView
+                        = new EditText(findWordParamDto.getListActivity());
 
                 // ダイアログ生成  AlertDialogのBuilderクラスを指定してインスタンス化
-                AlertDialog.Builder dialog = new AlertDialog.Builder(ListActivity.instance);
+                AlertDialog.Builder dialog
+                        = new AlertDialog.Builder(findWordParamDto.getListActivity());
                 // タイトル設定
                 dialog.setTitle("検索");
                 //入力フォーム
@@ -56,15 +50,16 @@ public class FindWordImpl implements FindWord {
                         String word = editView.getText().toString();
 
                         //引数に検索文字
-                        adapter.setViewBinder(Di.setColor.searchWord(word));
+                        findWordParamDto.getAdapter().setViewBinder(
+                                Di.setColor.searchWord(new SetColorParamDto(word)));
                         // idがmemoListのListViewを取得
-                        ListView listView = ListActivity.instance.findViewById(R.id.memoList);
+                        ListView listView
+                                = findWordParamDto.getListActivity().findViewById(R.id.memoList);
                         //背景色を変えてから再表示
-                        listView.setAdapter(adapter);
+                        listView.setAdapter(findWordParamDto.getAdapter());
 
                     }
                 });
-
                 // NGボタン作成
                 dialog.setNegativeButton("キャンセル", new DialogInterface.OnClickListener(){
 
@@ -73,7 +68,6 @@ public class FindWordImpl implements FindWord {
                         // 何もしないで閉じる
                     }
                 });
-
                 // ダイアログ表示
                 dialog.create().show();
 

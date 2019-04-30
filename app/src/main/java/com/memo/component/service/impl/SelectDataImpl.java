@@ -2,7 +2,7 @@ package com.memo.component.service.impl;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import com.memo.component.service.MemoOpenHelper;
+import com.memo.component.dto.SelectDataParamDto;
 import com.memo.component.service.SelectData;
 
 import java.util.ArrayList;
@@ -10,15 +10,15 @@ import java.util.HashMap;
 
 public class SelectDataImpl implements SelectData {
 
-    public ArrayList<HashMap<String, String>> selectData(MemoOpenHelper helper) {
-
+    public ArrayList<HashMap<String, String>> selectData(
+            SelectDataParamDto selectDataParamDto) {
         // メモリストデータを格納する変数
         final ArrayList<HashMap<String, String>> memoList = new ArrayList<>();
         // データベースを取得する
-        SQLiteDatabase db = helper.getWritableDatabase();
+        SQLiteDatabase db = selectDataParamDto.getHelper().getWritableDatabase();
         try {
             // rawQueryというSELECT専用メソッドを使用してデータを取得する
-            Cursor c = db.rawQuery("select uuid, body from MEMO_TABLE order by id", null);
+            Cursor c = db.rawQuery("SELECT uuid, body FROM MEMO_TABLE ORDER BY id", null);
             // Cursorの先頭行があるかどうか確認
             boolean next = c.moveToFirst();
 

@@ -7,7 +7,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TwoLineListItem;
 import com.memo.ListActivity;
+import com.memo.component.dto.ListClickParamDto;
 
 public interface ListClick {
-    void listClick(ListView listView);
+    void listClick(ListClickParamDto listClickParamDto);
 }

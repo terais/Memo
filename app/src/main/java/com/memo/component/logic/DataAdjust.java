@@ -1,6 +1,6 @@
 package com.memo.component.logic;
 
-import com.memo.ListActivity;
+import com.memo.component.dto.DataAdjustParamDto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,5 +11,5 @@ import java.util.HashMap;
  */
 public interface DataAdjust {
     ArrayList<HashMap<String,String>> dataAdjust(
-            ArrayList<HashMap<String, String>> memoList);
+            DataAdjustParamDto dataAdjustParamDto);
 }

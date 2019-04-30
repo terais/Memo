@@ -1,6 +1,5 @@
 package com.memo.dagger.module;
 
-import com.memo.ListActivity;
 import com.memo.component.controller.*;
 import com.memo.component.logic.DataAdjust;
 import com.memo.component.other.CreateAdapter;
@@ -22,6 +21,6 @@ public class Di {
     public static FindWord findWord = component.makeFindWord();
     public static DataAdjust dataAdjust = component.makeDataAdjust();
     public static CreateAdapter createAdapter = component.makeCreateAdapter();
-    public static final Create create = component.makeCreate();
     public static SetColor setColor = component.makeSetColor();
+    public static final Create create = component.makeCreate();
 }

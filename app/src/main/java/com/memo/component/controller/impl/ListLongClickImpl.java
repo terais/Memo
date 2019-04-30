@@ -3,19 +3,14 @@ package com.memo.component.controller.impl;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
 import android.widget.*;
-import com.memo.ListActivity;
 import com.memo.component.controller.ListLongClick;
-import com.memo.component.service.MemoOpenHelper;
+import com.memo.component.dto.ListLongClickParamDto;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 public class ListLongClickImpl implements ListLongClick {
-    public void listLongClick(ListView listView,
-                              final ArrayList<HashMap<String, String>> memo,
-                              final SimpleAdapter adapter,
-                              final MemoOpenHelper helper) {
+    public void listLongClick(final ListLongClickParamDto listLongClickParamDto) {
         // リスト項目を長押しクリックした時の処理
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+        listLongClickParamDto.getListView()
+                .setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
             /**
              * @param parent ListView
              * @param view 選択した項目
@@ -29,15 +24,15 @@ public class ListLongClickImpl implements ListLongClick {
                 String idStr = (String) idTextView.getText();
 
                 // 長押しした項目をデータベースから削除
-                SQLiteDatabase db = helper.getWritableDatabase();
+                SQLiteDatabase db = listLongClickParamDto.getHelper().getWritableDatabase();
                 try {
                     db.execSQL("DELETE FROM MEMO_TABLE WHERE uuid = '"+ idStr +"'");
                 } finally {
                     db.close();
                 }
                 // 長押しした項目を画面から削除
-                memo.remove(position);
-                adapter.notifyDataSetChanged();
+                listLongClickParamDto.getMemo().remove(position);
+                listLongClickParamDto.getAdapter().notifyDataSetChanged();
 
                 // trueにすることで通常のクリックイベントを発生させない
                 return true;

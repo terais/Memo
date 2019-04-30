@@ -1,6 +1,7 @@
 package com.memo.component.controller;
 
-public interface NewEntry {
+import com.memo.component.dto.NewEntryParamDto;
 
-    void newEntry();
+public interface NewEntry {
+    void newEntry(NewEntryParamDto newEntryParamDto);
 }

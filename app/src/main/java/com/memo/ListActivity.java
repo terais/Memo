@@ -7,15 +7,13 @@ import java.util.ArrayList;
 
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import com.memo.component.dto.*;
 import com.memo.dagger.module.Di;
 
 public class ListActivity extends AppCompatActivity {
 
     //メインであるListActivityのインスタンスはコンポネントでよく使うのでゲッター用意
     public static ListActivity instance = null;
-
-    //検索HITフラグ
-    public static ArrayList<String> hit = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,30 +27,33 @@ public class ListActivity extends AppCompatActivity {
         setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_list);
 
-        // memoListにデータを格納
-        ArrayList<HashMap<String, String>> memoList
-                = Di.selectData.selectData(Di.memoOpenHelper);
+        // memoにデータを格納
+        ArrayList<HashMap<String, String>> memo
+                = Di.selectData.selectData(
+                        new SelectDataParamDto(Di.memoOpenHelper));
 
         // Adapter生成
         SimpleAdapter simpleAdapter = Di.createAdapter.createAdapter(
-                Di.dataAdjust.dataAdjust(memoList), this);
+                new CreateAdapterParamDto(
+                    Di.dataAdjust.dataAdjust(new DataAdjustParamDto(memo)),
+                        this));
 
         // idがmemoListのListViewを取得
         ListView listView = findViewById(R.id.memoList);
         listView.setAdapter(simpleAdapter);
 
         // リスト項目をクリックした時の処理(メモ画面に遷移)
-        Di.listClick.listClick(listView);
+        Di.listClick.listClick(new ListClickParamDto(listView, this));
 
         // リスト項目を長押しクリックした時の処理(削除)
-        Di.listLongClick.listLongClick(
-                listView, memoList, simpleAdapter, Di.memoOpenHelper);
+        Di.listLongClick.listLongClick(new ListLongClickParamDto(
+                listView, memo, simpleAdapter, Di.memoOpenHelper));
 
         //新規作成ボタン押下処理(メモ画面へ遷移)
-        Di.newEntry.newEntry();
+        Di.newEntry.newEntry(new NewEntryParamDto(this));
 
         //検索ボタン押下処理(ダイアログ表示。OKが押されたら検索実行)
-        Di.findWord.findWord(this, memoList, simpleAdapter,  Di.setColor.searchWord(""));
-
+        Di.findWord.findWord(new FindWordParamDto(
+                this, simpleAdapter));
     }
 }

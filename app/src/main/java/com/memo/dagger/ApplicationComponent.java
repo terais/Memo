@@ -21,6 +21,6 @@ public interface ApplicationComponent {
     FindWord makeFindWord();
     DataAdjust makeDataAdjust();
     CreateAdapter makeCreateAdapter();
-    Create makeCreate();
     SetColor makeSetColor();
+    Create makeCreate();
 }

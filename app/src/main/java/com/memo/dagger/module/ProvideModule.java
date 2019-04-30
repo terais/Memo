@@ -20,7 +20,6 @@ import dagger.Provides;
 
 @Module
 public class ProvideModule {
-    private ListActivity instance = ListActivity.instance;
     @Provides
     Sprash provideSprash() {
         return new SprashImpl();
@@ -31,7 +30,7 @@ public class ProvideModule {
     }
     @Provides
     MemoOpenHelper provideMemoOpenHelper() {
-        return new MemoOpenHelperImpl(instance);
+        return new MemoOpenHelperImpl(ListActivity.instance);
     }
     @Provides
     NewEntry provideNewEntry() {
@@ -58,11 +57,11 @@ public class ProvideModule {
         return new CreateAdapterImpl();
     }
     @Provides
-    Create provideCreate() {
-        return new CreateImpl();
-    }
-    @Provides
     SetColor provideSetColor() {
         return new SetColorImpl();
+    }
+    @Provides
+    Create provideCreate() {
+        return new CreateImpl();
     }
 }
