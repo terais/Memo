@@ -7,5 +7,5 @@ import java.util.HashMap;
 import com.memo.ListActivity;
 
 public interface CreateAdapter {
-    SimpleAdapter createAdapter(ArrayList<HashMap<String,String>> memoList);
+    SimpleAdapter createAdapter(ArrayList<HashMap<String,String>> memoList, ListActivity instance);
 }

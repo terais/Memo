@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CreateAdapterImpl implements CreateAdapter {
-    public SimpleAdapter createAdapter(ArrayList<HashMap<String,String>> memoList) {
+    public SimpleAdapter createAdapter(ArrayList<HashMap<String,String>> memoList, ListActivity instance) {
         // Adapter生成
-        final SimpleAdapter simpleAdapter = new SimpleAdapter(ListActivity.instance,
+        final SimpleAdapter simpleAdapter = new SimpleAdapter(instance,//ListActivity.instance,
                 memoList, // 使用するデータ
                 android.R.layout.simple_list_item_2, // 使用するレイアウト（今回はテンプレートを使う）
                 new String[]{"body","id"}, // どの項目を

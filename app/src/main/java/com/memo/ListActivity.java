@@ -52,7 +52,7 @@ public class ListActivity extends AppCompatActivity {
         memoList = Di.selectData.selectData(helper);
 
         // Adapter生成
-        simpleAdapter = Di.createAdapter.createAdapter(Di.dataAdjust.dataAdjust(memoList));
+        simpleAdapter = Di.createAdapter.createAdapter(Di.dataAdjust.dataAdjust(memoList), this);
 
         // idがmemoListのListViewを取得
         ListView listView = findViewById(R.id.memoList);
