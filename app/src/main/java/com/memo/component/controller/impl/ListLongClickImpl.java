@@ -21,11 +21,7 @@ public class ListLongClickImpl implements ListLongClick {
              * @param id 選択した項目のID
              */
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                // 選択されたビューを取得 TwoLineListItemを取得した後、text2の値を取得する
-                TwoLineListItem two = (TwoLineListItem)view;
-                TextView idTextView = (TextView)two.getText2();
-                String idStr = (String) idTextView.getText();
-
+                String idStr = listLongClickParamDto.getMemo().get(position).get("id");
                 // 長押しした項目をデータベースから削除
                 SQLiteDatabase db = listLongClickParamDto.getHelper().getWritableDatabase();
 
