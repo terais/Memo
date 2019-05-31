@@ -1,8 +1,6 @@
-package com.memo.component.other.impl;
+package com.memo.component.common.impl;
 
-import com.memo.component.other.Sprash;
-import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.ObjectUtils;
+import com.memo.component.common.Sprash;
 
 /**
  * アプリ起動時にメモっ娘を表示する時間を操作するメソッド

@@ -1,10 +1,8 @@
-package com.memo.component.other.impl;
+package com.memo.component.common.impl;
 
 import android.widget.SimpleAdapter;
 import com.memo.component.dto.CreateAdapterParamDto;
-import com.memo.component.other.CreateAdapter;
-
-import java.util.Date;
+import com.memo.component.common.CreateAdapter;
 
 public class CreateAdapterImpl implements CreateAdapter {
     public SimpleAdapter createAdapter(

@@ -1,4 +1,4 @@
-package com.memo.component.other;
+package com.memo.component.common;
 
 public interface Sprash {
     void sprash() throws InterruptedException;

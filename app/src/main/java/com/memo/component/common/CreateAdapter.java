@@ -1,4 +1,4 @@
-package com.memo.component.other;
+package com.memo.component.common;
 
 import android.widget.SimpleAdapter;
 import com.memo.component.dto.CreateAdapterParamDto;
